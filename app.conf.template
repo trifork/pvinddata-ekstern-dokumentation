@@ -1,20 +1,25 @@
 server {
     listen       8080;
-    server_tokens off;
     server_name  localhost;
-     location  ~ ${HTTP_PATH}(?<path>) {
-        root   /usr/share/nginx/files;
-        # Never cache docs. Because they are likely to have the same url on different versions
+
+    location / {
+        root   /usr/share/nginx;
+        # kill cache
+        add_header X-Content-Type-Options "nosniff" always;
         add_header Last-Modified $date_gmt;
         add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
-        add_header X-Content-Type-Options "nosniff" always;
-        try_files  $path  /usr/share/nginx/files/$path=404;
-     }
+        if_modified_since off;
+        expires off;
+        etag off;
+        try_files $uri $uri/ /index.html =404;
+    }
 
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
 
-#      # redirect server error pages to the static page /50x.html
-#        error_page 500 502 503 504 /50x.html;
-#        location = /50x.html {
-#          root /usr/share/nginx/html;
-#        }
 }
+
