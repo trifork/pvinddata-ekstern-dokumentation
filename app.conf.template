@@ -2,7 +2,7 @@ server {
     listen       8080;
     server_name  localhost;
 
-    location ${HTTP_PATH} {
+    location ~${HTTP_PATH}(?<path>.*) {
         root   /usr/share/nginx;
         # kill cache
         add_header X-Content-Type-Options "nosniff" always;
@@ -11,7 +11,7 @@ server {
         if_modified_since off;
         expires off;
         etag off;
-        try_files $uri $uri/ /index.html =404;
+        try_files  $path $uri $uri/ =404;
     }
 
     # redirect server error pages to the static page /50x.html
