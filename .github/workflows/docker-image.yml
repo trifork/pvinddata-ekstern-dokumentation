@@ -26,7 +26,9 @@ jobs:
       uses: docker/build-push-action@v4.1.1
       with:
         no-cache: true
-        tags: ${{ github.repository }}:$(date +%s)
+        tags: |
+          ${{ github.repository }}: $(date +'%Y%m%d-%H%M%S')
+          ${{ github.repository }}:latest
         push: true
         # Do not cache specified stages
 
