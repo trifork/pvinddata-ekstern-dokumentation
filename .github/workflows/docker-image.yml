@@ -27,7 +27,7 @@ jobs:
       with:
         no-cache: true
         tags: |
-          ${{ github.repository }}: $(date +'%Y%m%d-%H%M%S')
+          ${{ github.repository }}:$(date +'%Y%m%d-%H%M%S')
           ${{ github.repository }}:latest
         push: true
         # Do not cache specified stages
