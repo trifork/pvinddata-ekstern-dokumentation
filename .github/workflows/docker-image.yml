@@ -24,18 +24,6 @@ jobs:
       id: tag
       run: echo "docker_tag=$(date -u +"%Y%m%dT%H%M%SZ")" >> $GITHUB_ENV
 
-    - name: Image tag
-      run: echo ${{ env.docker_tag }}
-
-#    - name: Docker metadata release
-#      id: metadata
-#      uses: docker/metadata-action@v4
-#      with:
-#        images: ghcr.io/${{ github.repository }}
-#        tags: |
-#          type=edge
-#          type=schedule,{{date 'YYYYMMDD-HHmmss'}}
-
     - name: Build and push Docker images
       uses: docker/build-push-action@v4.1.1
       with:
