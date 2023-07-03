@@ -2,7 +2,7 @@ server {
     listen       8080;
     server_name  localhost;
 
-    location ~${HTTP_PATH}(?<path>.*) {
+    location ~${HTTP_BASE_PATH}(?<path>.*) {
         root   /usr/share/nginx;
         # kill cache
         add_header X-Content-Type-Options "nosniff" always;
