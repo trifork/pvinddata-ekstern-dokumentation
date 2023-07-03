@@ -22,20 +22,19 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Docker metadata release
-      id: metadata
-      uses: docker/metadata-action@v4
-      with:
-        images: ghcr.io/${{ github.repository }}
-        tags: |
-          type=raw,{{date 'YYYYMMDD-HHmmss' tz='UTC'}}
-          type=edge
+#    - name: Docker metadata release
+#      id: metadata
+#      uses: docker/metadata-action@v4
+#      with:
+#        images: ghcr.io/${{ github.repository }}
+#        tags: |
+#          type=raw,${{date 'YYYYMMDD-HHmmss' tz='UTC'}}
+#          type=edge
 
     - name: Build and push Docker images
       uses: docker/build-push-action@v4.1.1
       with:
         no-cache: true
-        tags: ${{ steps.metadata.outputs.tags }}
-        labels: ${{ steps.metadata.outputs.labels }}
+        tags: ${{date 'YYYYMMDD-HHmmss' tz='UTC'}}
         push: true
 
