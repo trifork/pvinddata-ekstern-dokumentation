@@ -28,7 +28,7 @@ jobs:
       with:
         images: ghcr.io/${{ github.repository }}
         tags: |
-          type=schedule,${{date 'YYYYMMDD-HHmmss'}}
+          type=schedule,{{date 'YYYYMMDD-HHmmss'}}
           type=edge
 
     - name: Build and push Docker images
